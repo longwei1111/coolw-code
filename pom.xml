@@ -6,19 +6,48 @@
     <groupId>com.runlw</groupId>
     <artifactId>coody-code</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>coody-code</name>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+    <packaging>pom</packaging>
 
     <modules>
-        <module>coody-designpattern</module>
-        <module>coody-druid</module>
-        <module>coody-excel</module>
-        <module>coody-rabbitmq</module>
-        <module>coody-test</module>
-        <module>coody-redis</module>
+        <module>coolw-designpattern</module>
+        <module>coolw-excel</module>
+        <module>coolw-test</module>
+        <module>coolw-redis</module>
     </modules>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <junit.version>4.12</junit.version>
+        <lombok.version>1.18.10</lombok.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.2.2.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+    </dependencies>
 </project>
