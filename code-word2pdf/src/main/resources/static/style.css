@@ -1,0 +1,272 @@
+* {
+	box-sizing: border-box;
+}
+html,
+body {
+	background: #f2f5fb;
+	padding-bottom: 30px;
+}
+
+:root {
+	--color: #2051e2;
+	--textColor: #666;
+	--borderColor: #ddd;
+}
+
+.use-agreement {
+	color: var(--textColor);
+	font-size: 14px;
+	text-align: center;
+	max-width: 1020px;
+	margin: auto;
+	margin-top: 30px;
+}
+
+.card {
+	background: #fff;
+	padding: 25px;
+	max-width: 1020px;
+	width: 90%;
+	margin: auto;
+	border-radius: 10px;
+	box-shadow: 0 10px 59px 0 rgba(32, 91, 226, 0.15);
+}
+.item {
+	background: #f2f5fb;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 20px;
+	margin-bottom: 20px;
+	color: var(--textColor);
+}
+.item .label {
+	width: 120px;
+	white-space: nowrap;
+	font-size: 16px;
+	flex: none;
+}
+
+.title {
+	font-size: 27px;
+	text-align: center;
+	margin-top: 70px;
+	line-height: 110px;
+	margin-bottom: 0;
+}
+
+.input {
+	width: 100%;
+	height: 45px;
+	border-radius: 5px;
+	border: 1px solid var(--borderColor);
+	font-size: 15px;
+	background: #fff;
+	padding-left: 15px;
+	flex: 1;
+}
+.input:last-child {
+	margin-right: 0;
+}
+button {
+	background: #fff;
+	text-align: center;
+	font-size: 16px;
+	color: var(--textColor);
+	cursor: pointer;
+	border: 1px solid var(--borderColor);
+	border-radius: 5px;
+	transition: all 0.15s;
+	width: 140px;
+	height: 45px;
+	line-height: 43px;
+	flex: none;
+}
+.json-textarea:focus,
+input:focus,
+textarea:focus,
+button:focus {
+	outline: 0;
+}
+
+button:active {
+	box-shadow: inset 0 5px 6px 0 rgba(0, 0, 0, 0.2);
+}
+button.active {
+	background: var(--color);
+	border: 1px solid var(--color);
+	color: #fff;
+	margin-left: 15px;
+}
+button.disabled {
+	background: #dedede;
+	color: var(--textColor);
+	border: 1px solid #dedede;
+	margin-left: 15px;
+	cursor: no-drop;
+}
+button.disabled:active {
+	box-shadow: none;
+}
+
+button img {
+	width: 15px;
+	display: inline-block;
+	margin-right: 3px;
+	vertical-align: middle;
+}
+button.disabled img:nth-of-type(1) {
+	display: none;
+}
+button.disabled img:nth-of-type(2) {
+	display: inline-block;
+}
+button.active img:nth-of-type(1) {
+	display: inline-block;
+}
+button.active img:nth-of-type(2) {
+	display: none;
+}
+.content,
+.content-png-input {
+	text-align: center;
+	flex: 1;
+}
+.content-png-input .input {
+	margin-bottom: 15px;
+}
+.content-png-input .input:last-child {
+	margin-bottom: 0;
+}
+.c-title {
+	color: var(--color);
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+.c-btns {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.c-btns button {
+	margin: 0 30px;
+}
+
+.input-card {
+	background: #fafafa;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #e5e5e5;
+	margin-bottom: 20px;
+	border-radius: 7px;
+	padding-top: 45px;
+	padding-bottom: 45px;
+}
+.input-card::before {
+	content: "";
+	position: absolute;
+	width: calc(100% - 17px);
+	height: calc(100% - 17px);
+	border-radius: 7px;
+	border: 2px dashed #e5e5e5;
+}
+.file-input {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	z-index: 3;
+}
+.file-warp {
+	height: 110px;
+	width: 95px;
+	position: relative;
+	border-radius: 5px;
+	background: var(--color);
+	clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 0 100%);
+}
+.file-warp::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	background: #89a3ee;
+}
+
+.file-content {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	line-height: 110px;
+	font-weight: 700;
+	text-align: center;
+	color: #fff;
+	font-size: 40px;
+}
+.file-btn {
+	position: absolute;
+	z-index: 7;
+	cursor: pointer;
+	background: #f00;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	top: 40px;
+	right: calc(100% / 2 - 110px / 2);
+}
+.file-btn::before,
+.file-btn::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
+	background: #fff;
+	transform: rotate(45deg);
+}
+.file-btn::before {
+	width: 15px;
+	height: 2px;
+}
+.file-btn::after {
+	width: 2px;
+	height: 15px;
+}
+.no-file button {
+	display: block;
+	margin: auto;
+}
+.no-file p {
+	text-align: center;
+	font-size: 16px;
+	color: var(--textColor);
+}
+.has-file {
+	display: none;
+}
+
+.json-textarea,
+.png-json-textarea {
+	max-height: 400px;
+	min-height: 200px;
+	-webkit-user-modify: read-write-plaintext-only;
+	padding: 15px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: initial;
+	white-space: pre-wrap;
+}

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>文档在线预览模块</title>
+		<link rel="stylesheet" href="style.css" />
+		<script src="preview.js"></script>
+	</head>
+	<body>
+		<h4 class="title">文档在线预览模块</h4>
+		<div class="card">
+			<div class="input-card">
+				<div class="has-file">
+					<div class="file-warp">
+						<div class="file-content"></div>
+					</div>
+					<div class="file-btn"></div>
+				</div>
+				<div class="no-file">
+					<input type="file" class="file-input" id="file-input" />
+					<button class="active">点击选择文件</button>
+					<p>请上传需要转换的文件,最大支持50M, 支持PDF PNG格式</p>
+				</div>
+			</div>
+			<div class="item">
+				<div class="label">地址：</div>
+				<input disabled class="input address-input" type="text" />
+				<button class="disabled address-btn">
+					<img src="./img/preview.png" alt="" />
+					立即预览
+				</button>
+			</div>
+			<div class="item">
+				<div class="label">json格式：</div>
+				<div contenteditable class="json-textarea input"></div>
+			</div>
+			<div class="item">
+				<div class="label">格式选择</div>
+				<div class="content">
+					<div class="c-title">自定义设置转换如下</div>
+					<div class="c-btns">
+						<button class="change-pdf disabled">转换PDF</button>
+						<button class="change-png disabled">转换PNG图片</button>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="label">PDF地址：</div>
+				<input disabled class="input pdf-url" type="text" />
+				<button class="disabled pdf-btn">
+					<img src="./img/pdf.png" alt="" />
+					<img src="./img/pdf-gray.png" alt="" />
+					立即预览
+				</button>
+			</div>
+			<div class="item">
+				<div class="label">PNG地址：</div>
+				<div class="content-png-input">
+					<input disabled class="input" type="text" />
+				</div>
+				<button class="disabled png-btn">
+					<img src="./img/pdf.png" alt="" />
+					<img src="./img/pdf-gray.png" alt="" />
+					立即预览
+				</button>
+			</div>
+			<div class="item">
+				<div class="label">PNG JSON：</div>
+				<div contenteditable class="png-json-textarea input"></div>
+			</div>
+		</div>
+		<p class="use-agreement">使用协议:</p>
+		<script>
+			;(function () {
+				// const host = "http://up.icuapi.com"
+				const host = ""
+
+				const previewPdf = "/docpreview/topdf"
+				const previewPng = "/docpreview/topng"
+
+				function getElement(selector) {
+					return document.querySelector(selector)
+				}
+				function ajax(option) {
+					option = {
+						url: "",
+						method: "get",
+						data: {},
+						type: "queryString",
+						...option,
+					}
+					const xhr = new XMLHttpRequest()
+
+					xhr.open(option.method, host + option.url)
+
+					const type = {
+						json() {
+							return JSON.stringify(option.data)
+						},
+						formdata() {
+							const formdata = new FormData()
+							Object.keys(option.data).forEach(key => {
+								formdata.append(key, option.data[key])
+							})
+							return formdata
+						},
+						queryString() {
+							return Object.keys(option.data)
+								.map(key => `${key}=${option.data[key]}`)
+								.json("&")
+						},
+					}
+
+					xhr.send(type[option.type]())
+
+					return new Promise((res, rej) => {
+						xhr.onreadystatechange = () => {
+							if (xhr.readyState == 4 && xhr.status == 200) {
+								const data = JSON.parse(xhr.responseText)
+								if (data.code == 0) {
+									res(data)
+								} else {
+									rej(msg)
+								}
+							}
+							if (xhr.status != 200) {
+								rej(xhr.responseText)
+							}
+						}
+					})
+				}
+
+				function show(el, type = "block") {
+					el.style.display = type
+				}
+				function hide(el, type = "none") {
+					el.style.display = type
+				}
+				function hasDisabled(el) {
+					return el.classList.contains("disabled")
+				}
+				const element = {
+					hasFile: getElement(".has-file"),
+					noFile: getElement(".no-file"),
+					fileContent: getElement(".file-content"),
+					fileBtn: getElement(".file-btn"),
+					fileInput: getElement(".file-input"),
+					addressInput: getElement(".address-input"),
+					addressBtn: getElement(".address-btn"),
+					jsonTextarea: getElement(".json-textarea"),
+					changePdf: getElement(".change-pdf"),
+					changePng: getElement(".change-png"),
+					pdfUrl: getElement(".pdf-url"),
+					pdfBtn: getElement(".pdf-btn"),
+					content: getElement(".content-png-input"),
+					pngBtn: getElement(".png-btn"),
+					pngJson: getElement(".png-json-textarea"),
+
+					get contentInput() {
+						return this.content.children
+					},
+				}
+				const formdata = {
+					_file: null,
+					get file() {
+						return this._file
+					},
+					set file(file) {
+						this._file = file
+						if (file == null || file == "") {
+							show(element.noFile)
+							hide(element.hasFile)
+
+							element.fileInput.value = ""
+
+							this.address = ""
+							this.json = ""
+							this.pdfUrl = ""
+							this.pngUrl = []
+						} else {
+							show(element.hasFile)
+							hide(element.noFile)
+
+							const type = window.$Preview.formatShowType(file.name)[0]
+							element.fileContent.innerText = type.toLocaleUpperCase()
+						}
+					},
+					get address() {
+						return element.addressInput.value
+					},
+					set address(value) {
+						element.addressInput.value = value
+
+						if (value && this.file) {
+							element.addressBtn.classList.remove("disabled")
+							element.addressBtn.classList.add("active")
+
+							element.changePdf.classList.remove("disabled")
+							element.changePdf.classList.add("active")
+							element.changePng.classList.remove("disabled")
+							element.changePng.classList.add("active")
+						} else {
+							element.addressBtn.classList.add("disabled")
+							element.addressBtn.classList.remove("active")
+
+							element.changePdf.classList.add("disabled")
+							element.changePdf.classList.remove("active")
+							element.changePng.classList.add("disabled")
+							element.changePng.classList.remove("active")
+						}
+					},
+					get json() {
+						return element.jsonTextarea.innerHTML
+					},
+					set json(value) {
+						element.jsonTextarea.innerHTML = JSON.stringify(value, null, 2)
+					},
+					get pdfUrl() {
+						return element.pdfUrl.value
+					},
+					set pdfUrl(value) {
+						element.pdfUrl.value = value
+
+						if (value && this.file) {
+							element.pdfBtn.classList.remove("disabled")
+							element.pdfBtn.classList.add("active")
+						} else {
+							element.pdfBtn.classList.add("disabled")
+							element.pdfBtn.classList.remove("active")
+						}
+					},
+					get pngUrl() {
+						const urls = []
+						for (let i = 0, len = element.contentInput.length; i < len; i++) {
+							urls.push(element.contentInput[i].value)
+						}
+						return urls
+					},
+					set pngUrl(value) {
+						console.log(value)
+						if (value == null || typeof value == "string") {
+							this.pngUrl = [value || ""]
+							return
+						}
+						element.content.innerHTML = ""
+
+						value.forEach(item => {
+							const input = document.createElement("input")
+							input.classList.add("input")
+							input.disabled = true
+							input.value = item
+							element.content.append(input)
+						})
+
+						if (value && this.file) {
+							element.pngBtn.classList.remove("disabled")
+							element.pngBtn.classList.add("active")
+						} else {
+							element.pngBtn.classList.add("disabled")
+							element.pngBtn.classList.remove("active")
+						}
+					},
+				}
+
+				element.fileInput.onchange = () => {
+					const [file] = element.fileInput.files
+					formdata.file = file
+
+					ajax({
+						url: "/docpreview/upload",
+						data: {
+							file,
+						},
+						method: "POST",
+						type: "formdata",
+					}).then(res => {
+						formdata.address = res.data.src
+						formdata.json = res
+					})
+				}
+				element.fileBtn.onclick = () => {
+					formdata.file = null
+				}
+				element.addressBtn.onclick = () => {
+					if (hasDisabled(element.addressBtn)) {
+						return
+					}
+					window.$Preview.show(formdata.address)
+				}
+				element.pdfBtn.onclick = () => {
+					if (hasDisabled(element.pdfBtn)) {
+						return
+					}
+					window.$Preview.show(formdata.pdfUrl)
+				}
+				element.pngBtn.onclick = () => {
+					if (hasDisabled(element.pngBtn)) {
+						return
+					}
+					window.$Preview.show(formdata.pngUrl)
+				}
+				element.changePdf.onclick = () => {
+					ajax({
+						url: previewPdf,
+						method: "POST",
+						data: {
+							file: formdata.file,
+						},
+						type: "formdata",
+					}).then(res => {
+						formdata.pdfUrl = res.data.pdfPath
+					})
+				}
+				element.changePng.onclick = () => {
+					// formdata.pngUrl = [
+					// 	"http://up.icuapi.com/docpreview/20210126/2a1856adc11c41d482f64c5348dbfec2_1.png",
+					// 	"http://up.icuapi.com/docpreview/20210126/2a1856adc11c41d482f64c5348dbfec2_1.png",
+					// 	"http://up.icuapi.com/docpreview/20210126/2a1856adc11c41d482f64c5348dbfec2_1.png",
+					// ]
+					// element.pngJson.innerHTML = JSON.stringify({data: [
+					// 	"http://up.icuapi.com/docpreview/20210126/2a1856adc11c41d482f64c5348dbfec2_1.png",
+					// 	"http://up.icuapi.com/docpreview/20210126/2a1856adc11c41d482f64c5348dbfec2_1.png",
+					// 	"http://up.icuapi.com/docpreview/20210126/2a1856adc11c41d482f64c5348dbfec2_1.png",
+					// ]}, null, 2)
+
+					ajax({
+						url: previewPng,
+						method: "POST",
+						data: {
+							file: formdata.file,
+						},
+						type: "formdata",
+					}).then(res => {
+						formdata.pngUrl = res.data.pngList
+
+						element.pngJson.innerHTML = JSON.stringify(res, null, 2)
+					})
+				}
+			})()
+		</script>
+	</body>
+</html>
