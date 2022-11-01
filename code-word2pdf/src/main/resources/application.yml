@@ -1,0 +1,15 @@
+
+spring:
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+  thymeleaf:
+    suffix: .html
+    prefix: classpath:/page/
+
+castle:
+  upload:
+    # 自行配置可访问的路径
+    fileDomain: D:/pdf
+    # 原始文件的服务器存储位置
+    fileServerPath: D:/pdf
