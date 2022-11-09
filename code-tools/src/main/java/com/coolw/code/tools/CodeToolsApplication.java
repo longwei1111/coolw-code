@@ -1,4 +1,4 @@
-package com.coolw.code.thread.tools;
+package com.coolw.code.tools;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

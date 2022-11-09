@@ -1,4 +1,4 @@
-package com.coolw.code.thread.tools;
+package com.coolw.code.tools;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

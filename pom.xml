@@ -10,13 +10,14 @@
     <modules>
         <module>code-designpattern</module>
         <module>code-excel</module>
-        <module>code-test</module>
         <module>code-redis</module>
         <module>code-mapstruct</module>
         <module>code-spring</module>
         <module>code-word2pdf</module>
         <module>code-java8</module>
         <module>code-file</module>
+        <module>code-tools</module>
+        <module>code-thread</module>
     </modules>
 
     <properties>

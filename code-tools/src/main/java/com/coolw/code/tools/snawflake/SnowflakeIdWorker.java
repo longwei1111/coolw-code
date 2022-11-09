@@ -1,4 +1,4 @@
-package com.coolw.code.thread.tools.snawflake;
+package com.coolw.code.tools.snawflake;
 
 /**
  * @Classname SnakeFlake
