@@ -1,13 +1,13 @@
 package com.coolw.code.thread.demo;
 
 /**
- * TODO
+ * Thread
  *
  * @author coolw
  * @date 2022/10/24 17:24
  * @since 1.0
  */
-public class Demo1 {
+public class Demo1Thread {
     
     public static class MyThread extends Thread {
         @Override

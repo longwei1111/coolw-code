@@ -3,7 +3,7 @@ package com.coolw.code.thread.demo;
 import org.junit.Test;
 
 /**
- * TODO
+ * ThreadGroup:线程组
  *
  * @author coolw
  * @date 2022/10/26 8:42
