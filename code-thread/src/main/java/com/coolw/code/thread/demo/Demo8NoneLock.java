@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.stream.IntStream;
 
 /**
- * TODO
+ * 无锁
  *
  * @author coolw
  * @date 2022/10/28 15:02
@@ -27,9 +27,6 @@ public class Demo8NoneLock {
         }
     }
     
-    /**
-     * 无锁
-     */
     @Test
     public void test1() throws InterruptedException {
         Thread t1 = new Thread(new ThreadA());

@@ -11,8 +11,7 @@ import org.junit.Test;
  */
 public class Demo6ThreadGroup {
 
-    @Test
-    public void test1() {
+    public static void main(String[] args) {
         Thread testThread = new Thread(() -> {
             // 没有显示指定线程组名称时，默认会将父类线程名称做为子线程的线程组名称
             String threadGroupName = Thread.currentThread().getThreadGroup().getName();

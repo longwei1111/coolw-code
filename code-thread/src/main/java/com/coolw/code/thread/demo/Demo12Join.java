@@ -3,7 +3,7 @@ package com.coolw.code.thread.demo;
 /**
  * join：是Thread类中的一个实例方法
  *   它的作用是让当前线程处于"等待"状态，等调用join方法的线程执行完后，再继续执行当前线程
- *   底层是调用的Object的wait方法
+ *   底层是调用的Object的wait(long)方法
  *
  * @author coolw
  * @date 2022/10/31 10:56
@@ -33,5 +33,4 @@ public class Demo12Join {
         //thread.join(1000L)
         System.out.println("线程：" + Thread.currentThread().getName() + "执行结束");
     }
-    
 }

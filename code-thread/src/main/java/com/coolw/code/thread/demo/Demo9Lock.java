@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.stream.IntStream;
 
 /**
- * TODO
+ * 有锁
  *
  * @author coolw
  * @date 2022/10/28 15:02
@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
  */
 public class Demo9Lock {
 
-    private Object lock = new Object();
+    private final Object lock = new Object();
     
     public class ThreadC implements Runnable {
         @Override
@@ -33,9 +33,6 @@ public class Demo9Lock {
         }
     }
 
-    /**
-     * 有锁
-     */
     @Test
     public void test2() throws InterruptedException {
         Thread t3 = new Thread(new ThreadC());

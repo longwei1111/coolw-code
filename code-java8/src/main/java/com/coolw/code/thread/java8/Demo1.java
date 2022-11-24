@@ -1,5 +1,6 @@
 package com.coolw.code.thread.java8;
 
+import com.coolw.code.thread.java8.damain.Apple;
 import org.junit.Test;
 
 import java.util.*;
@@ -31,8 +32,12 @@ public class Demo1 {
             }
         });*/
         
-        // 使用java8，排序 
+        // 使用java8，排序(默认升序)
         apples.sort(Comparator.comparing(Apple::getWeight));
+        System.out.println(apples);
+        
+        // 降序
+        apples.sort(Comparator.comparing(Apple::getWeight).reversed());
         System.out.println(apples);
     }
     

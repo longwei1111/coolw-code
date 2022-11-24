@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
  */
 public class Demo5Priority {
     
-    public class MyThread extends Thread {
+    public static class MyThread extends Thread {
         @Override
         public void run() {
             super.run();

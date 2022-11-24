@@ -1,4 +1,4 @@
-package com.coolw.code.thread.java8;
+package com.coolw.code.thread.java8.damain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
