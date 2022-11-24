@@ -18,6 +18,7 @@
         <module>code-file</module>
         <module>code-tools</module>
         <module>code-thread</module>
+        <module>code-test</module>
     </modules>
 
     <properties>
