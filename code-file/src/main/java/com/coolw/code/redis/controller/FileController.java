@@ -2,12 +2,13 @@ package com.coolw.code.redis.controller;
 
 import com.coolw.code.redis.util.FileUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -22,11 +23,6 @@ import java.util.List;
 @RequestMapping("/file")
 public class FileController {
 
-    @GetMapping("/test")
-    public String upload() {
-        return "旭东,调通了";
-    }
-
     @PostMapping("/upload")
     public String upload(List<MultipartFile> files) {
         if (files.isEmpty()) {
@@ -35,5 +31,9 @@ public class FileController {
         FileUtils.batchUpload(files);
         return "文件上传成功";
     }
-    
+
+    @PostMapping("/downZip")
+    public void downFileZip(HttpServletResponse response) throws IOException {
+        FileUtils.downFileZip(response);
+    }
 }
