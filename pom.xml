@@ -15,7 +15,7 @@
         <module>code-spring</module>
         <module>code-word2pdf</module>
         <module>code-java8</module>
-        <module>code-file</module>
+        <module>code-io</module>
         <module>code-tools</module>
         <module>code-thread</module>
         <module>code-test</module>
